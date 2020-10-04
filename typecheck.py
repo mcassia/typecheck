@@ -142,7 +142,7 @@ class typecheck_plus(_typecheck):
             import logging
             logging.warn('Invalid type received for arg {}'.format(name))
     
-        @typecheck(on_type_failure, int, int, prompt=str)
+        @typecheck_plus(on_type_failure, int, int, prompt=str)
         def sum_print(x, y, prompt='The sum of {} and {} is {}.'):
             print(prompt.format(str(x), str(y), str(x+y)))
             

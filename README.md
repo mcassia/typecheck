@@ -58,3 +58,8 @@ def sum_print(x, y, prompt='The sum of {} and {} is {}.'):
 # instead it logs, as defined in the callback function.
 sum_print(1, 2, prompt=42)
 ```
+
+## Known Issues
+As of 2020-10-04, some limitations about the utility are known:
+- The decorator logic attempts to determine whether the first argument should be exempt from the type check; this is the case for instance and class methods within classes: this is because their first arguments (`self` and `cls` traiditionally) are not user specified. It is attempted to determine whether the first argument is one of those by inspecting the argument value for a symbol with the same name as the function being decorated. Should the first argument be a user defined one (i.e. the one in a function not contained in a class or a static method) and it receives an object containing a symbol with the same as the function being decorated, it would be wrongfully be skipped, leading to a mismatch between the expected types and the arguments.
+- The decorator expects that the function being decorated is always called with arguments and keyword arguments as specified in its signature; it's however possible to call the function `def foo(x, y=42)` with `foo(1, 2)` or `foo(x=1, y=2)`.
